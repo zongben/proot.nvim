@@ -6,7 +6,7 @@ local _projects = {}
 
 local find_file = function(path, files)
   for _, file in ipairs(files) do
-    if path:find(file) then
+    if vim.fn.fnamemodify(path, ":t") == file then
       return true
     end
   end
