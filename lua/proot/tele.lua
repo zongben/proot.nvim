@@ -1,7 +1,8 @@
-local pickers = require("telescope.pickers")
 local finders = require("telescope.finders")
-local action_state = require("telescope.actions.state")
+local pickers = require("telescope.pickers")
+local entry_display = require("telescope.pickers.entry_display")
 local actions = require("telescope.actions")
+local action_state = require("telescope.actions.state")
 local theme = require("telescope.themes")
 local detector = require("proot.detector")
 
@@ -9,19 +10,33 @@ local picker
 
 local M = {}
 
+local make_displayer = function(entry)
+  return entry_display.create({
+    separator = " ",
+    items = {
+      { width = 20 },
+      { remaining = true },
+    },
+  })({ entry.name, { entry.value, "Comment" } })
+end
+
+local entry_maker = function(entry)
+  local name = vim.fn.fnamemodify(entry, ":t")
+  return {
+    name = name,
+    value = entry,
+    display = make_displayer,
+    ordinal = 1,
+  }
+end
+
 local new_picker = function()
   local projects = detector.get_projects()
   picker = pickers.new(theme.get_dropdown(), {
     prompt_title = "Proot",
     finder = finders.new_table({
       results = projects,
-      entry_maker = function(entry)
-        return {
-          value = entry,
-          display = entry,
-          ordinal = 1,
-        }
-      end,
+      entry_maker = entry_maker,
     }),
     attach_mappings = function(_, map)
       actions.select_default:replace(function(prompt_bufnr)
@@ -41,13 +56,7 @@ end
 local refresh_picker = function()
   picker:refresh(finders.new_table({
     results = detector.get_projects(),
-    entry_maker = function(entry)
-      return {
-        value = entry,
-        display = entry,
-        ordinal = 1,
-      }
-    end,
+    entry_maker = entry_maker,
   }))
 end
 
