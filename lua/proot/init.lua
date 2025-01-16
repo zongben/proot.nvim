@@ -1,5 +1,5 @@
 local config = require("proot.config")
-local detecter = require("proot.detecter")
+local detecter = require("proot.detector")
 local tele = require("proot.tele")
 
 local M = {}
