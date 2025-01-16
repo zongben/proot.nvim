@@ -39,11 +39,11 @@ M.init = function(files)
   M.lsp_detect()
 end
 
-M.getProjects = function()
+M.get_projects = function()
   return _projects
 end
 
-M.setProjects = function(projects)
+M.set_projects = function(projects)
   _projects = projects
   save()
 end
