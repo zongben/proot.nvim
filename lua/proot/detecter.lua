@@ -13,11 +13,11 @@ local find_file = function(path, files)
   return false
 end
 
-local save = function ()
+local save = function()
   saver.save(_projects)
 end
 
-local add_project = function (path)
+local add_project = function(path)
   path = path:gsub("\\", "/")
   if vim.tbl_contains(_projects, path) then
     return
