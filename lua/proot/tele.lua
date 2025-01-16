@@ -64,12 +64,12 @@ M.delete_project = function()
   end
 end
 
-M.open_project_picker = function()
+M.open_proot_picker = function()
   new_picker()
 end
 
 M.init = function()
-  vim.api.nvim_create_user_command("Proot", "lua require('proot.tele').open_project_picker()", {
+  vim.api.nvim_create_user_command("Proot", M.open_proot_picker, {
     nargs = 0,
     complete = nil,
   })
