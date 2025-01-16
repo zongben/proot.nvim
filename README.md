@@ -19,9 +19,7 @@ With lazy.nvim
     "nvim-telescope/telescope.nvim",
     "nvim-lua/plenary.nvim"
   },
-  config = function()
-    require("proot").setup()
-  end,
+  opts = {}
 }
 ```
 
