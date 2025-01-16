@@ -3,14 +3,14 @@ local finders = require("telescope.finders")
 local action_state = require("telescope.actions.state")
 local actions = require("telescope.actions")
 local theme = require("telescope.themes")
-local detecter = require("proot.detecter")
+local detector = require("proot.detector")
 
 local picker
 
 local M = {}
 
 local new_picker = function()
-  local projects = detecter.get_projects()
+  local projects = detector.get_projects()
   picker = pickers.new(theme.get_dropdown(), {
     prompt_title = "Proot",
     finder = finders.new_table({
@@ -40,7 +40,7 @@ end
 
 local refresh_picker = function()
   picker:refresh(finders.new_table({
-    results = detecter.get_projects(),
+    results = detector.get_projects(),
     entry_maker = function(entry)
       return {
         value = entry,
@@ -52,12 +52,12 @@ local refresh_picker = function()
 end
 
 M.delete_project = function()
-  local projects = detecter.get_projects()
+  local projects = detector.get_projects()
   local path = action_state.get_selected_entry().value
   for i, project in ipairs(projects) do
     if project == path then
       table.remove(projects, i)
-      detecter.set_projects(projects)
+      detector.set_projects(projects)
       refresh_picker()
       return
     end
