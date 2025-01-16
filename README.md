@@ -36,5 +36,5 @@ The default configuration is as follows
 
 ## Usage
 
-Open proot picker by calling `:Proot`
-
+Open proot picker by calling `:Proot`  
+In proot picker you can press `d` to remove project dir
