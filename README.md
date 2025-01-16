@@ -37,4 +37,8 @@ The default configuration is as follows
 ## Usage
 
 Open proot picker by calling `:Proot`  
-In proot picker you can press `d` to remove project dir
+In proot picker you can use `d` to delete project dir
+
+## Similar Plugin
+
+[ahmedkhalf/project.nvim](https://github.com/ahmedkhalf/project.nvim) - The superior project management solution for neovim. 
