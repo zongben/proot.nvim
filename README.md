@@ -2,7 +2,7 @@
 
 Lightweight project navigator with telescope
 
-![圖片](https://github.com/user-attachments/assets/d21f7614-a361-4496-8033-83b8bf058c7e)
+![圖片](https://github.com/user-attachments/assets/b2661a98-4455-4350-a2c2-1a105e853a75)
 
 ## Features
 
