@@ -1,6 +1,6 @@
 # proot.nvim
 
-Lightweight project navigator with Telescope
+Lightweight project navigator with telescope
 
 ![圖片](https://github.com/user-attachments/assets/d21f7614-a361-4496-8033-83b8bf058c7e)
 
