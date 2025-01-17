@@ -19,8 +19,10 @@ end
 
 local add_project = function(path)
   path = path:gsub("\\", "/")
-  if vim.tbl_contains(_projects, path) then
-    return
+  for _, project in ipairs(_projects) do
+    if string.lower(project) == string.lower(path) then
+      return
+    end
   end
 
   table.insert(_projects, path)
