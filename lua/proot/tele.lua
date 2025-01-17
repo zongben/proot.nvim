@@ -77,11 +77,4 @@ M.open_proot_picker = function()
   new_picker()
 end
 
-M.init = function()
-  vim.api.nvim_create_user_command("Proot", M.open_proot_picker, {
-    nargs = 0,
-    complete = nil,
-  })
-end
-
 return M
