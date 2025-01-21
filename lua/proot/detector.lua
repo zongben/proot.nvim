@@ -41,6 +41,17 @@ M.init = function(files)
   M.lsp_detect()
 end
 
+M.move_project_to_top = function(path)
+  for i, project in ipairs(_projects) do
+    if string.lower(project) == string.lower(path) then
+      table.remove(_projects, i)
+      table.insert(_projects, 1, path)
+      save()
+      return
+    end
+  end
+end
+
 M.get_projects = function()
   return _projects
 end

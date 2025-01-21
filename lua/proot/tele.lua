@@ -45,6 +45,7 @@ local new_picker = function()
         vim.cmd("bufdo bd")
         vim.fn.chdir(selection.value)
         vim.api.nvim_set_current_dir(selection.value)
+        detector.move_project_to_top(selection.value)
       end)
       map("n", "d", M.delete_project)
       return true
