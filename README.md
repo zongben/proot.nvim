@@ -6,7 +6,7 @@ Lightweight project navigator with telescope
 
 ## Features
 
-* Autodetect and save project root dir
+* Autodetect by using lsp and files to save project root dir
 * Use telescope to search and change root dir
 
 ## Installation
