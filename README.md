@@ -28,7 +28,10 @@ With lazy.nvim
 The default configuration is as follows
 ```lua
 {
-  files = { ".git" }
+  files = { ".git" },
+  events = {
+    entered = nil, --Set a function here
+  },
 }
 ```
 
@@ -37,6 +40,19 @@ The default configuration is as follows
 Open proot picker by calling `:Proot`  
 In proot picker you can use `d` to delete project dir
 
+## Tips
+
+I like to close all buffers and restart lsp after I switch repo
+
+```lua
+events = {
+  entered = function ()
+    vim.cmd("bufdo bd")
+    vim.cmd("LspRestart")
+  end
+}
+```
+
 ## Similar Plugin
 
-[ahmedkhalf/project.nvim](https://github.com/ahmedkhalf/project.nvim) - The superior project management solution for neovim. 
+[ahmedkhalf/project.nvim](https://github.com/ahmedkhalf/project.nvim) - The superior project management solution for neovim.
