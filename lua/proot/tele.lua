@@ -7,6 +7,7 @@ local theme = require("telescope.themes")
 local detector = require("proot.detector")
 
 local picker
+local _events
 
 local M = {}
 
@@ -44,6 +45,9 @@ local new_picker = function()
         actions.close(prompt_bufnr)
         vim.fn.chdir(selection.value)
         vim.api.nvim_set_current_dir(selection.value)
+        if _events.entered then
+          _events.entered()
+        end
         detector.move_project_to_top(selection.value)
       end)
       map("n", "d", M.delete_project)
@@ -58,6 +62,10 @@ local refresh_picker = function()
     results = detector.get_projects(),
     entry_maker = entry_maker,
   }))
+end
+
+M.init = function(events)
+  _events = events
 end
 
 M.delete_project = function()
