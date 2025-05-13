@@ -30,7 +30,9 @@ The default configuration is as follows
 {
   files = { ".git" },
   events = {
-    entered = nil, --Set a function here
+    -- called when you change the directory
+    entered = function(path)
+    end
   },
 }
 ```
@@ -46,7 +48,9 @@ I like to close all buffers and restart lsp after I switch repo
 
 ```lua
 events = {
-  entered = function ()
+  entered = function (path)
+    vim.fn.chdir(path)
+    vim.api.nvim_set_current_dir(path)
     vim.cmd("bufdo bd")
     vim.cmd("LspRestart")
   end
