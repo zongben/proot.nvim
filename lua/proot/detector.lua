@@ -40,11 +40,9 @@ M.init = function(files, ignore, detector)
   _files = files
   _ignore = ignore
   if detector.enable_file_detect then
-    vim.notify("PRoot: File detection enabled")
     M.file_detect()
   end
   if detector.enable_lsp_detect then
-    vim.notify("PRoot: LSP detection enabled")
     M.lsp_detect()
   end
 end
