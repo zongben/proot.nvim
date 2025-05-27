@@ -28,7 +28,14 @@ With lazy.nvim
 The default configuration is as follows
 ```lua
 {
+  detector = {
+    enable_file_detect = true,
+    enable_lsp_detect = true,
+  },
   files = { ".git" },
+  ignore = {
+    lsp = nil, -- ignore lsp clients by name e.g. { "pyright", "tsserver" }
+  },
   events = {
     -- called when you change the directory
     entered = function(path)
@@ -50,7 +57,6 @@ I like to close all buffers and restart lsp after I switch repo
 events = {
   entered = function (path)
     vim.fn.chdir(path)
-    vim.api.nvim_set_current_dir(path)
     vim.cmd("bufdo bd")
     vim.cmd("LspRestart")
   end
