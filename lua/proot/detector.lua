@@ -2,6 +2,7 @@ local saver = require("proot.saver")
 local scandir = require("plenary.scandir")
 
 local _files = {}
+local _ignore = {}
 local _projects = {}
 
 local find_file = function(path, files)
@@ -31,14 +32,21 @@ end
 
 local M = {}
 
-M.init = function(files)
+M.init = function(files, ignore, detector)
   local projects = saver.load()
   if projects then
     _projects = projects
   end
   _files = files
-  M.file_detect()
-  M.lsp_detect()
+  _ignore = ignore
+  if detector.enable_file_detect then
+    vim.notify("PRoot: File detection enabled")
+    M.file_detect()
+  end
+  if detector.enable_lsp_detect then
+    vim.notify("PRoot: LSP detection enabled")
+    M.lsp_detect()
+  end
 end
 
 M.move_project_to_top = function(path)
@@ -88,6 +96,10 @@ M.lsp_detect = function()
       })
 
       for _, client in ipairs(clients) do
+        if vim.tbl_contains(_ignore.lsp or {}, client.name) then
+          return
+        end
+
         local root_dir = client.root_dir
         if root_dir then
           add_project(root_dir)

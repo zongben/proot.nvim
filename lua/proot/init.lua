@@ -9,7 +9,7 @@ M.setup = function(opts)
   M.options = vim.tbl_deep_extend("force", config.defaults, opts or {})
 
   tele.init(M.options.events)
-  detector.init(M.options.files)
+  detector.init(M.options.files, M.options.ignore, M.options.detector)
   cmd.init()
 end
 
