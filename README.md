@@ -56,7 +56,6 @@ I like to close all buffers and restart lsp after I switch repo
 ```lua
 events = {
   entered = function (path)
-    vim.fn.chdir(path)
     vim.cmd("bufdo bd")
     vim.cmd("LspRestart")
   end

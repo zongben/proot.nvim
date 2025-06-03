@@ -43,6 +43,7 @@ local new_picker = function()
       actions.select_default:replace(function(prompt_bufnr)
         local selection = action_state.get_selected_entry()
         actions.close(prompt_bufnr)
+        vim.fn.chdir(selection.value)
         if _events.entered then
           _events.entered(selection.value)
         end
