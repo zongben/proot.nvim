@@ -8,6 +8,7 @@ Lightweight project navigator with telescope
 
 * Autodetect by using lsp and files to save project root dir
 * Use telescope to search and change root dir
+* Allow freely renaming projects for easier management
 
 ## Installation
 
@@ -47,20 +48,23 @@ The default configuration is as follows
 ## Usage
 
 Open proot picker by calling `:Proot`  
-In proot picker you can use `d` to delete project dir
+In proot picker you can use `d` to delete project dir and use `r` to rename project name virtually
 
 ## Tips
 
-I like to close all buffers and restart lsp after I switch repo
+I like to close all buffers after I switch repo
 
 ```lua
 events = {
   entered = function (path)
     vim.cmd("bufdo bd")
-    vim.cmd("LspRestart")
   end
 }
 ```
+
+## NOTE
+
+If you encounter any issues, please check the changelog first.
 
 ## Similar Plugin
 

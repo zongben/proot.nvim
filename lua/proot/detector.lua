@@ -5,6 +5,17 @@ local _files = {}
 local _ignore = {}
 local _projects = {}
 
+local insert_project = function (name, path, index)
+  if not index then
+    index = #_projects + 1
+  end
+
+  table.insert(_projects, index, {
+    name = name,
+    path = path,
+  })
+end
+
 local find_file = function(path, files)
   for _, file in ipairs(files) do
     if vim.fn.fnamemodify(path, ":t") == file then
@@ -21,12 +32,11 @@ end
 local add_project = function(path)
   path = path:gsub("\\", "/")
   for _, project in ipairs(_projects) do
-    if string.lower(project) == string.lower(path) then
+    if string.lower(project.path) == string.lower(path) then
       return
     end
   end
-
-  table.insert(_projects, path)
+  insert_project(vim.fn.fnamemodify(path, ":t"), path, 1)
   save()
 end
 
@@ -49,9 +59,10 @@ end
 
 M.move_project_to_top = function(path)
   for i, project in ipairs(_projects) do
-    if string.lower(project) == string.lower(path) then
+    if string.lower(project.path) == string.lower(path) then
+      local name = project.name
       table.remove(_projects, i)
-      table.insert(_projects, 1, path)
+      insert_project(name, path, 1)
       save()
       return
     end

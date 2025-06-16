@@ -22,10 +22,9 @@ local make_displayer = function(entry)
 end
 
 local entry_maker = function(entry)
-  local name = vim.fn.fnamemodify(entry, ":t")
   return {
-    name = name,
-    value = entry,
+    name = entry.name,
+    value = entry.path,
     display = make_displayer,
     ordinal = 1,
   }
@@ -50,6 +49,7 @@ local new_picker = function()
         detector.move_project_to_top(selection.value)
       end)
       map("n", "d", M.delete_project)
+      map("n", "r", M.rename_project)
       return true
     end,
   })
@@ -71,8 +71,27 @@ M.delete_project = function()
   local projects = detector.get_projects()
   local path = action_state.get_selected_entry().value
   for i, project in ipairs(projects) do
-    if project == path then
+    if project.path == path then
       table.remove(projects, i)
+      detector.set_projects(projects)
+      refresh_picker()
+      return
+    end
+  end
+end
+
+M.rename_project = function()
+  local selected_entry = action_state.get_selected_entry()
+  local input = vim.fn.input("Rename project: ", selected_entry.name)
+
+  if input == "" then
+    return
+  end
+
+  local projects = detector.get_projects()
+  for _, project in ipairs(projects) do
+    if project.path == selected_entry.value then
+      project.name = input
       detector.set_projects(projects)
       refresh_picker()
       return
