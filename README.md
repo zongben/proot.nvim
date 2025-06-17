@@ -52,14 +52,40 @@ In proot picker you can use `d` to delete project dir and use `r` to rename proj
 
 ## Tips
 
-I like to close all buffers after I switch repo
+I like to close all buffers and restart LSP servers after I switched repositories
 
 ```lua
 events = {
   entered = function (path)
     vim.cmd("bufdo bd")
+
+    local clients = vim.lsp.get_clients()
+    for _, client in pairs(clients) do
+      if client.name ~= "copilot" then
+        vim.cmd("LspRestart " .. client.name)
+      end
+    end
   end
 }
+```
+
+For users who use toggleterm and lazygit, you can set the directory of lazygit each time you launch it.  
+This way, each time proot switches to a new directory, lazygit can also switch to the new path accordingly.
+
+```lua
+local Terminal = require("toggleterm.terminal").Terminal
+local lazygit = Terminal:new({
+  cmd = "lazygit",
+  hidden = true,
+  direction = "float",
+  float_opts = {
+    border = "curved",
+  },
+})
+function Lazygit_toggle()
+  lazygit.dir = vim.fn.getcwd()
+  lazygit:toggle()
+end
 ```
 
 ## NOTE
