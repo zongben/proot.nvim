@@ -7,6 +7,7 @@ M.defaults = {
   },
   files = { ".git" },
   ignore = {
+    subpath = true,
     lsp = nil,
   },
   events = {

@@ -35,6 +35,7 @@ The default configuration is as follows
   },
   files = { ".git" },
   ignore = {
+    subpath = true, --If you are using monorepo, set to true to ignore subrepos
     lsp = nil, -- ignore lsp clients by name e.g. { "pyright", "tsserver" }
   },
   events = {

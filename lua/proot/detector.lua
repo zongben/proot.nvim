@@ -5,7 +5,7 @@ local _files = {}
 local _ignore = {}
 local _projects = {}
 
-local insert_project = function (name, path, index)
+local insert_project = function(name, path, index)
   if not index then
     index = #_projects + 1
   end
@@ -29,10 +29,18 @@ local save = function()
   saver.save(_projects)
 end
 
+local start_with = function(str, prefix)
+  return string.sub(str, 1, #prefix) == prefix
+end
+
 local add_project = function(path)
   path = path:gsub("\\", "/")
   for _, project in ipairs(_projects) do
     if string.lower(project.path) == string.lower(path) then
+      return
+    end
+
+    if _ignore.subpath and start_with(path, project.path) then
       return
     end
   end
