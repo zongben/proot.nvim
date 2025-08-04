@@ -4,6 +4,7 @@ local scandir = require("plenary.scandir")
 local _files = {}
 local _ignore = {}
 local _projects = {}
+local _ignored_path = {}
 
 local insert_project = function(name, path, index)
   if not index then
@@ -35,12 +36,17 @@ end
 
 local add_project = function(path)
   path = path:gsub("\\", "/")
+  if vim.tbl_contains(_ignored_path, path) then
+    return
+  end
+
   for _, project in ipairs(_projects) do
     if string.lower(project.path) == string.lower(path) then
       return
     end
 
     if _ignore.subpath and start_with(path, project.path) then
+      table.insert(_ignored_path, path)
       return
     end
   end

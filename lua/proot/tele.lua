@@ -26,11 +26,16 @@ local entry_maker = function(entry)
     name = entry.name,
     value = entry.path,
     display = make_displayer,
-    ordinal = 1,
+    ordinal = entry.name .. " " .. entry.path,
   }
 end
 
 local new_picker = function()
+  if picker then
+    pcall(picker.delete)
+    picker = nil
+  end
+
   local projects = detector.get_projects()
   picker = pickers.new(theme.get_dropdown(), {
     prompt_title = "Proot",
