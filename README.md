@@ -62,7 +62,7 @@ events = {
 
     local clients = vim.lsp.get_clients()
     for _, client in pairs(clients) do
-      vim.cmd("LspRestart " .. client.name)
+        vim.lsp.stop_client(client)
     end
   end
 }
