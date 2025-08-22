@@ -60,9 +60,8 @@ events = {
   entered = function (path)
     vim.cmd("bufdo bd")
 
-    local clients = vim.lsp.get_clients()
-    for _, client in pairs(clients) do
-      vim.lsp.stop_client(client)
+    if #vim.lsp.get_clients() > 0 then
+      vim.lsp.client:stop()
     end
   end
 }
