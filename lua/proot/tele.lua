@@ -26,7 +26,7 @@ local entry_maker = function(entry)
     name = entry.name,
     value = entry.path,
     display = make_displayer,
-    ordinal = entry.name .. " " .. entry.path,
+    ordinal = 1,
   }
 end
 
