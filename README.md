@@ -62,7 +62,7 @@ events = {
 
     local clients = vim.lsp.get_clients()
     for _, client in pairs(clients) do
-        vim.lsp.stop_client(client)
+      vim.lsp.stop_client(client)
     end
   end
 }
