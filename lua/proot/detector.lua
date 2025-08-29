@@ -5,6 +5,7 @@ local _files = {}
 local _ignore = {}
 local _projects = {}
 local _ignored_path = {}
+local _detected_event = nil
 
 local insert_project = function(name, path, index)
   if not index then
@@ -50,13 +51,21 @@ local add_project = function(path)
       return
     end
   end
-  insert_project(vim.fn.fnamemodify(path, ":t"), path, 1)
+
+  local name = vim.fn.fnamemodify(path, ":t")
+  insert_project(name, path, 1)
+
+  if _detected_event then
+    _detected_event(name, path)
+  end
+
   save()
 end
 
 local M = {}
 
-M.init = function(files, ignore, detector)
+M.init = function(files, ignore, detector, detected_event)
+  _detected_event = detected_event
   local projects = saver.load()
   if projects then
     _projects = projects

@@ -39,6 +39,9 @@ The default configuration is as follows
     lsp = nil, -- ignore lsp clients by name e.g. { "pyright", "tsserver" }
   },
   events = {
+    -- called when new project is found
+    detected = function(name, path)
+    end
     -- called when you change the directory
     entered = function(path)
     end

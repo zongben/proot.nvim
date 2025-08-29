@@ -11,6 +11,7 @@ M.defaults = {
     lsp = nil,
   },
   events = {
+    detected = nil,
     entered = nil,
   },
 }
