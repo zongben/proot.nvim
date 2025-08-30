@@ -89,10 +89,6 @@ function Lazygit_toggle()
 end
 ```
 
-## NOTE
-
-If you encounter any issues, please check the changelog first.
-
 ## Similar Plugin
 
 [ahmedkhalf/project.nvim](https://github.com/ahmedkhalf/project.nvim) - The superior project management solution for neovim.
