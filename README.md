@@ -43,7 +43,7 @@ The default configuration is as follows
     detected = function(name, path)
     end
     -- called when you change the directory
-    entered = function(path)
+    entered = function(name, path)
     end
   },
 }
