@@ -60,7 +60,7 @@ I like to close all buffers and restart LSP servers after I switched repositorie
 
 ```lua
 events = {
-  entered = function (path)
+  entered = function ()
     vim.cmd("bufdo bd")
 
     for _, client in pairs(vim.lsp.get_clients()) do
