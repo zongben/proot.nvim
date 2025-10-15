@@ -1,6 +1,6 @@
 # proot.nvim
 
-Lightweight project navigator
+Lightweight project navigator with picker
 
 ![圖片](https://github.com/user-attachments/assets/b2661a98-4455-4350-a2c2-1a105e853a75)
 
@@ -18,6 +18,18 @@ With lazy.nvim
   opts = {}
 }
 ```
+
+### Telescope Extension
+
+For users with Telescope installed
+
+```lua
+require("telescope").load_extension("proot")
+```
+
+### Snacks Sources
+
+For users with Snacks installed, proot automatically registers its sources.
 
 ## Configuration
 
@@ -49,13 +61,13 @@ The default configuration is as follows
 
 ### Telescope Extension
 
-For users with Telescope installed
+Open picker by calling `require("telescope").extensions.proot.open_picker()`
 
-```lua
-require("telescope").load_extension("proot")
-```
+### Snacks Sources
 
-Then, you can open picker by calling `require("telescope").extensions.proot.open_picker()`
+Open picker by calling `:Proot`
+
+### Picker
 
 In proot picker you can use `d` to delete project dir and use `r` to rename project name virtually
 
