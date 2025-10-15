@@ -1,3 +1,4 @@
+local telescope = require("telescope")
 local finders = require("telescope.finders")
 local pickers = require("telescope.pickers")
 local entry_display = require("telescope.pickers.entry_display")
@@ -6,8 +7,7 @@ local action_state = require("telescope.actions.state")
 local theme = require("telescope.themes")
 local detector = require("proot.detector")
 local conf = require("telescope.config").values
-
-local _entered_event
+local proot = require("proot")
 
 local M = {}
 
@@ -52,8 +52,8 @@ local new_picker = function()
           local selection = action_state.get_selected_entry()
           actions.close(prompt_bufnr)
           vim.fn.chdir(selection.value)
-          if _entered_event then
-            _entered_event(selection.name, selection.value)
+          if proot.options.events.entered then
+            proot.options.events.entered(selection.name, selection.value)
           end
           detector.move_project_to_top(selection.value)
         end)
@@ -70,10 +70,6 @@ local refresh_picker = function(prompt_bufnr)
   action_state.get_current_picker(prompt_bufnr):refresh(finder, {
     reset_prompt = true,
   })
-end
-
-M.init = function(entered_event)
-  _entered_event = entered_event
 end
 
 M.delete_project = function(prompt_bufnr)
@@ -112,4 +108,8 @@ M.open_proot_picker = function()
   new_picker()
 end
 
-return M
+return telescope.register_extension({
+  exports = {
+    open_picker = M.open_proot_picker,
+  },
+})

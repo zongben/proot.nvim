@@ -1,13 +1,12 @@
 # proot.nvim
 
-Lightweight project navigator with telescope
+Lightweight project navigator
 
 ![圖片](https://github.com/user-attachments/assets/b2661a98-4455-4350-a2c2-1a105e853a75)
 
 ## Features
 
 * Autodetect by using lsp and files to save project root dir
-* Use telescope to search and change root dir
 * Allow freely renaming projects for easier management
 
 ## Installation
@@ -16,10 +15,6 @@ With lazy.nvim
 ```lua
 {
   "zongben/proot.nvim",
-  dependencies = {
-    "nvim-telescope/telescope.nvim",
-    "nvim-lua/plenary.nvim"
-  },
   opts = {}
 }
 ```
@@ -27,6 +22,7 @@ With lazy.nvim
 ## Configuration
 
 The default configuration is as follows
+
 ```lua
 {
   detector = {
@@ -51,7 +47,16 @@ The default configuration is as follows
 
 ## Usage
 
-Open proot picker by calling `:Proot`  
+### Telescope Extension
+
+For users with Telescope installed
+
+```lua
+require("telescope").load_extension("proot")
+```
+
+Then, you can open picker by calling `require("telescope").extensions.proot.open_picker()`
+
 In proot picker you can use `d` to delete project dir and use `r` to rename project name virtually
 
 ## Tips
@@ -68,25 +73,6 @@ events = {
     end
   end
 }
-```
-
-For users who use toggleterm and lazygit, you can set the directory of lazygit each time you launch it.  
-This way, each time proot switches to a new directory, lazygit can also switch to the new path accordingly.
-
-```lua
-local Terminal = require("toggleterm.terminal").Terminal
-local lazygit = Terminal:new({
-  cmd = "lazygit",
-  hidden = true,
-  direction = "float",
-  float_opts = {
-    border = "curved",
-  },
-})
-function Lazygit_toggle()
-  lazygit.dir = vim.fn.getcwd()
-  lazygit:toggle()
-end
 ```
 
 ## Similar Plugin

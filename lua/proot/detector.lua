@@ -64,18 +64,18 @@ end
 
 local M = {}
 
-M.init = function(files, ignore, detector, detected_event)
-  _detected_event = detected_event
+M.init = function(opts)
+  _detected_event = opts.detected_event
   local projects = saver.load()
   if projects then
     _projects = projects
   end
-  _files = files
-  _ignore = ignore
-  if detector.enable_file_detect then
+  _files = opts.files
+  _ignore = opts.ignore
+  if opts.detector.enable_file_detect then
     M.file_detect()
   end
-  if detector.enable_lsp_detect then
+  if opts.detector.enable_lsp_detect then
     M.lsp_detect()
   end
 end
