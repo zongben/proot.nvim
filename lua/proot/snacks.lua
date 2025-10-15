@@ -33,7 +33,7 @@ M.open_picker = function()
     end,
     format = function(item)
       return {
-        { string.format("%-15s", truncate(item.name, 15)) },
+        { string.format("%-20s", truncate(item.name, 20)) },
         { item.path, "SnacksPickerComment" },
       }
     end,
