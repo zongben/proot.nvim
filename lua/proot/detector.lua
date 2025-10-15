@@ -1,11 +1,45 @@
 local saver = require("proot.saver")
-local scandir = require("plenary.scandir")
 
 local _files = {}
 local _ignore = {}
 local _projects = {}
 local _ignored_path = {}
 local _detected_event = nil
+
+local scan_dir = function(path, opts)
+  opts = opts or {}
+  local results = {}
+
+  local function iter_dir(dir, depth)
+    if opts.depth and depth > opts.depth then
+      return
+    end
+
+    local fs = vim.uv.fs_scandir(dir)
+    if not fs then
+      return
+    end
+
+    while true do
+      local name, t = vim.uv.fs_scandir_next(fs)
+      if not name then
+        break
+      end
+      local fullpath = dir .. "/" .. name
+
+      if not (opts.hidden == false and name:sub(1, 1) == ".") then
+        if opts.add_dirs and t == "directory" then
+          table.insert(results, fullpath)
+        elseif t == "file" then
+          table.insert(results, fullpath)
+        end
+      end
+    end
+  end
+
+  iter_dir(path, 1)
+  return results
+end
 
 local insert_project = function(name, path, index)
   if not index then
@@ -103,9 +137,8 @@ end
 
 M.file_detect = function()
   local current_dir = vim.fn.getcwd()
-  local paths = scandir.scan_dir(current_dir, {
+  local paths = scan_dir(current_dir, {
     hidden = true,
-    respect_gitignore = false,
     add_dirs = true,
     depth = 1,
   })
