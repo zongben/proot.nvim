@@ -81,7 +81,7 @@ events = {
     vim.cmd("bufdo bd")
 
     for _, client in pairs(vim.lsp.get_clients()) do
-      vim.lsp.stop_client(client)
+      client:stop()
     end
   end
 }
